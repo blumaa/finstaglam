@@ -40,9 +40,9 @@ class Picture{
     const cardImageDiv = document.createElement('div')
     cardImageDiv.className = "card-image"
 
-    //           <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+    //           <img src="https://protected-hollows-16401.herokuapp.com/${this.url}">
     const img = document.createElement('img')
-    img.src = `https://git.heroku.com/protected-hollows-16401.git${this.url}`
+    img.src = `https://protected-hollows-16401.herokuapp.com${this.url}`
 
     //           <span class="card-title">${this.name}</span>
     const imageSpan = document.createElement('span')
@@ -77,9 +77,10 @@ class Picture{
     //         <div class="card-content">
 
     const cardContentDiv = document.createElement('div')
-    cardContentDiv.className = 'card-content truncate'
+    cardContentDiv.className = 'card-content teal lighten-'
     //           <p>${this.description}</p>
     const cardContentP = document.createElement('p')
+    cardContentP.className = "truncate blue-text text-darken-4"
     cardContentP.textContent = `${this.description}`
 
     cardContentDiv.append(cardContentP)
@@ -95,7 +96,7 @@ class Picture{
     //     <div class="col s12 m6">
     //       <div class="card" data-photographer-id="${this.photographerId}" data-picture-id="${this.pictureId}">
     //         <div class="card-image">
-    //           <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+    //           <img src="https://protected-hollows-16401.herokuapp.com/${this.url}">
     //           <span class="card-title">${this.name}</span>
     //           <a class="btn-floating waves-effect waves-light blue" id="edit"><i class="material-icons">edit</i></a>
     //           <a class="btn-floating halfway-fab waves-effect waves-light red" id="delete"><i class="material-icons">delete</i></a>
@@ -301,7 +302,7 @@ class Picture{
 
       // console.log('data', data)
 
-      fetch(`https://git.heroku.com/protected-hollows-16401.git/pictures/${pictureId}`, {
+      fetch(`https://protected-hollows-16401.herokuapp.com/pictures/${pictureId}`, {
         method: 'PATCH',
         body: data
       })
@@ -365,7 +366,7 @@ class Picture{
     }
     const pictureId = target.id
     // console.log(pictureId)
-    fetch(`https://git.heroku.com/protected-hollows-16401.git/pictures/${pictureId}`, reqObj)
+    fetch(`https://protected-hollows-16401.herokuapp.com/pictures/${pictureId}`, reqObj)
       .then(resp => resp.json() )
       .then(data => {
         // console.log('deleted', data)
@@ -383,9 +384,10 @@ class Picture{
         <div class="col s12 m6">
           <div class="card" id="${this.pictureId}">
             <div class="card-image">
-              <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+              <img src="https://protected-hollows-16401.herokuapp.com/${this.url}">
               <span class="card-title">${this.name}</span>
               <a class="btn-floating halfway-fab waves-effect waves-light green add-pic" ><i class="material-icons">add</i></a>
+              <span class=" btn blue left">${this.likes.length} Like</span>
             </div>
           </div>
         </div>
@@ -397,9 +399,10 @@ class Picture{
         <div class="col s12 m6">
           <div class="card" id="${this.pictureId}">
             <div class="card-image">
-              <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+              <img src="https://protected-hollows-16401.herokuapp.com/${this.url}">
               <span class="card-title">${this.name}</span>
               <a class="btn-floating halfway-fab waves-effect waves-light red del-pic"><i class="material-icons">delete</i></a>
+              <span class="btn blue left">${this.likes.length} Like</span>
             </div>
           </div>
         </div>
@@ -413,7 +416,7 @@ class Picture{
       <div class="col s12 m6">
         <div class="card" id="${this.pictureId}">
           <div class="card-image">
-            <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+            <img src="https://protected-hollows-16401.herokuapp.com/${this.url}">
             <span class="card-title">Card Title</span>
           </div>
           <div class="card-action">
@@ -427,7 +430,7 @@ class Picture{
   //     <div class="col s12 m6">
   //       <div class="card" data-photographer-id="${this.photographerId}" data-picture-id="${this.pictureId}">
   //         <div class="card-image">
-  //           <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+  //           <img src="https://protected-hollows-16401.herokuapp.com/${this.url}">
   //           <span class="card-title">${this.name}</span>
   //           <a class="btn-floating waves-effect waves-light blue" id="edit"><i class="material-icons">edit</i></a>
   //           <a class="btn-floating halfway-fab waves-effect waves-light red" id="delete"><i class="material-icons">delete</i></a>

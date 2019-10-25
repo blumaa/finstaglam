@@ -13,7 +13,7 @@ class ProfileCard {
     return (`
       <div class="card cyan lighten-5 hoverable">
         <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="https://git.heroku.com/protected-hollows-16401.git/${this.url}">
+          <img class="activator" src="https://protected-hollows-16401.herokuapp.com/${this.url}">
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">${this.name}<i class="material-icons right">edit</i></span>
@@ -81,7 +81,7 @@ class ProfileCard {
         <div class="card-panel grey lighten-5 z-depth-1">
           <div class="row valign-wrapper">
             <div class="col s5">
-              <img src="https://git.heroku.com/protected-hollows-16401.git/${this.url}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+              <img src="https://protected-hollows-16401.herokuapp.com/${this.url}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
             </div>
             <div class="col s6">
                 <p class="flow-text">Name: ${this.name}</p>

@@ -1,16 +1,23 @@
 function main() {
-  let userinput = prompt('Enter your id')
-  photogId = parseInt(userinput)
-  localStorage.setItem("user", userinput);
+  let photogId
+  if(localStorage.getItem("user")) {
+    photogId = parseInt(localStorage.getItem("user"))
+  } else {
+    let userinput = prompt('Enter your id')
+    photogId = parseInt(userinput)
+    localStorage.setItem("user", userinput);
+  }
+
 
   document.addEventListener('DOMContentLoaded', () => {
     getAllPhotographers()
     myProfileButton()
+    logOutButton()
   })
 
 
   const getAllPhotographers = () => {
-    fetch('https://git.heroku.com/protected-hollows-16401.git/photographers')
+    fetch('https://protected-hollows-16401.herokuapp.com/photographers')
       .then(resp => resp.json())
       .then(data => renderPhotographers(data))
       .catch(errors => console.log(errors))
@@ -36,7 +43,7 @@ function main() {
   }
 
   const renderPhotogPicture = (id) => {
-    fetch('https://git.heroku.com/protected-hollows-16401.git/pictures')
+    fetch('https://protected-hollows-16401.herokuapp.com/pictures')
       .then(resp => resp.json())
       .then(data => filterPhotogPicture(data, id))
   }
@@ -94,7 +101,7 @@ function main() {
       })
     }
 
-    fetch('https://git.heroku.com/protected-hollows-16401.git/likes')
+    fetch('https://protected-hollows-16401.herokuapp.com/likes')
       .then(resp => resp.json())
       .then(data => checkIfExist(data))
 
@@ -104,12 +111,12 @@ function main() {
 
     const checkIfExist = (data) => {
       if (!data.some(checkData)) {
-        fetch(`https://git.heroku.com/protected-hollows-16401.git/likes`, reqObj)
+        fetch(`https://protected-hollows-16401.herokuapp.com/likes`, reqObj)
           .catch(error => console.log(error))
         event.target.innerHTML = `${parseInt(event.target.innerHTML) + 1} Like`
       } else {
         const likeId = data.find(checkData).id
-        fetch(`https://git.heroku.com/protected-hollows-16401.git/likes/${likeId}`, {
+        fetch(`https://protected-hollows-16401.herokuapp.com/likes/${likeId}`, {
           method: 'DELETE'
         })
         .catch(error => console.log(error))
@@ -121,10 +128,15 @@ function main() {
 
   const myProfileButton = () => {
     const myProfile = document.querySelector('.my-profile')
-    console.log(myProfile)
     myProfile.href = `https://blumaa.github.io/finstaglam/profile.html`
-    myProfile.onclick = (event) => {
-      console.log(myProfile.href)
+  }
+
+  const logOutButton = () => {
+    const logOut = document.querySelector('.log-out')
+    console.log(logOut)
+    logOut.href = `https://blumaa.github.io/finstaglam/index.html`
+    logOut.onclick = (event) => {
+      localStorage.removeItem("user")
     }
   }
 }

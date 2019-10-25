@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Variables
   let allPhotographers = []
   let user = localStorage.getItem("user")
-  let URL = 'https://git.heroku.com/protected-hollows-16401.git/'
+  let URL = 'https://protected-hollows-16401.herokuapp.com/'
   const myPics = document.getElementById('my-pics-btn')
   const showPanel = document.getElementById('show-panel')
   const myAlbums = document.getElementById('my-album-btn')
@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Main Photographer Profile
   getProfileInfo()
-
 // ********************************************************************************
 // event listener for home button
 // ********************************************************************************
@@ -22,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('home').addEventListener('click', () => {
   showPanel.innerHTML = 'Welcome!'
 })
+
+const logOut = document.querySelector('.log-out')
+logOut.href = `/Users/andrew/Desktop/Gary_project/photographers-project-frontend/index.html`
+logOut.onclick = (event) => {
+  localStorage.removeItem("user")
+}
 
 
 
@@ -47,7 +52,7 @@ document.getElementById('home').addEventListener('click', () => {
 
   // get the photographer
   function getProfileInfo() {
-    fetch(`https://git.heroku.com/protected-hollows-16401.git/photographers/${user}`)
+    fetch(`https://protected-hollows-16401.herokuapp.com/photographers/${user}`)
     .then(resp => resp.json())
     .then(photogData => renderProfileInfo(photogData))
   }
@@ -92,7 +97,7 @@ document.getElementById('home').addEventListener('click', () => {
       body: profileData
     }
 
-    fetch(`https://git.heroku.com/protected-hollows-16401.git/photographers/${form.dataset.id}`, reqObj)
+    fetch(`https://protected-hollows-16401.herokuapp.com/photographers/${form.dataset.id}`, reqObj)
       .then(resp => resp.json())
       .then(newPData => {
         profileInfoDiv.innerHTML = ""
@@ -270,7 +275,7 @@ function renderPicHtml(picture) {
   // #######################################
 
   function getAlbums() {
-    return fetch('https://git.heroku.com/protected-hollows-16401.git/albums')
+    return fetch('https://protected-hollows-16401.herokuapp.com/albums')
       .then(resp => resp.json())
       .then(albums => renderAlbums(albums))
       .catch(error => console.log(error))
@@ -349,7 +354,7 @@ function renderPicHtml(picture) {
     const description = form[1].value
     const photographerId = user
 
-    fetch('https://git.heroku.com/protected-hollows-16401.git/albums', {
+    fetch('https://protected-hollows-16401.herokuapp.com/albums', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -370,7 +375,7 @@ function renderPicHtml(picture) {
   }
 
   function getAlbum(id) {
-    return fetch(`https://git.heroku.com/protected-hollows-16401.git/albums/${id}`)
+    return fetch(`https://protected-hollows-16401.herokuapp.com/albums/${id}`)
       .then(resp => resp.json())
       .then(album => showAlbum(album))
       .catch(error => console.log(error))
@@ -403,7 +408,7 @@ function renderPicHtml(picture) {
     profInfoContainer.append(nameH3, descriptionP)
 
     function pictureInAlbum() {
-      fetch(`https://git.heroku.com/protected-hollows-16401.git/albums/${album.id}`)
+      fetch(`https://protected-hollows-16401.herokuapp.com/albums/${album.id}`)
         .then(resp => resp.json())
         .then(album => fetchPics(album))
     }
@@ -418,7 +423,7 @@ function renderPicHtml(picture) {
     }
 
     function fetchPic(id) {
-      fetch(`https://git.heroku.com/protected-hollows-16401.git/pictures/${id}`)
+      fetch(`https://protected-hollows-16401.herokuapp.com/pictures/${id}`)
         .then(resp => resp.json())
         .then(pic => renderToAlbum(pic))
     }
@@ -440,7 +445,7 @@ function renderPicHtml(picture) {
 
     function delPicFromAlbum(event) {
       const picId = event.id
-      fetch(`https://git.heroku.com/protected-hollows-16401.git/album_pictures`)
+      fetch(`https://protected-hollows-16401.herokuapp.com/album_pictures`)
         .then(resp => resp.json())
         .then(data => findAlbPic(data))
 
@@ -455,7 +460,7 @@ function renderPicHtml(picture) {
       function findAlbPic(data) {
         const result = data.find(checkData(data))
 
-        fetch(`https://git.heroku.com/protected-hollows-16401.git/album_pictures/${result.id}`, {
+        fetch(`https://protected-hollows-16401.herokuapp.com/album_pictures/${result.id}`, {
           method: 'DELETE'
         })
 
@@ -545,7 +550,7 @@ function renderPicHtml(picture) {
                 album_id: myData.album_id
               })
             }
-            fetch('https://git.heroku.com/protected-hollows-16401.git/album_pictures')
+            fetch('https://protected-hollows-16401.herokuapp.com/album_pictures')
               .then(resp => resp.json())
               .then(data => checkIfExist(data))
 
@@ -559,7 +564,7 @@ function renderPicHtml(picture) {
             function checkIfExist(data) {
               console.log(data.some(checkData(myData)))
               if(!data.some(checkData(myData))) {
-                fetch(`https://git.heroku.com/protected-hollows-16401.git/album_pictures`, reqObj)
+                fetch(`https://protected-hollows-16401.herokuapp.com/album_pictures`, reqObj)
                   .catch(error => console.log(error))
                 fetchPic(myData.picture_id)
               }
@@ -624,7 +629,7 @@ function renderPicHtml(picture) {
 
     const container = document.getElementById('profInfo')
 
-    fetch(`https://git.heroku.com/protected-hollows-16401.git/albums/${album.id}`, {
+    fetch(`https://protected-hollows-16401.herokuapp.com/albums/${album.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -643,7 +648,7 @@ function renderPicHtml(picture) {
 
   function deleteAlb(album) {
     console.log(album.id)
-    fetch(`https://git.heroku.com/protected-hollows-16401.git/albums/${album.id}`,{
+    fetch(`https://protected-hollows-16401.herokuapp.com/albums/${album.id}`,{
       method: 'DELETE'
     })
     .then(resp => resp.json())
